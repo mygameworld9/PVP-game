@@ -1,0 +1,6 @@
+res://scripts/Main.gd
+res://scripts/Game.gd
+res://scripts/LanguageManager.gd
+res://scenes/Main.tscn
+res://characters/Knight.tscn
+res://characters/Swordsman.tscn

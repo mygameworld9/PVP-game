@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://crrxow6p7mc30"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_0x0x0"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_0x0x0")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 150.0
+text = "Character Roster Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterList" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="WarriorBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Warrior"
+
+[node name="MageBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Mage"
+
+[node name="ArcherBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Archer"
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = -50.0
+text = "Select a character to begin"
+horizontal_alignment = 1 

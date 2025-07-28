@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=3 uid="uid://game_scene"]
+
+[ext_resource type="Script" uid="uid://qesv34ynnyn" path="res://scripts/Game.gd" id="1_0x0x0"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_0x0x0")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CharacterInfo" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_right = -20.0
+offset_bottom = 200.0
+
+[node name="HealthLabel" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="StateLabel" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "State: Idle"
+
+[node name="ControlsLabel" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "Controls:"
+horizontal_alignment = 1
+
+[node name="MovementLabel" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "WASD - Move"
+horizontal_alignment = 1
+
+[node name="AttackLabel" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "SPACE - Jump"
+horizontal_alignment = 1
+
+[node name="MouseAttack1Label" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "Left Click - Attack 1"
+horizontal_alignment = 1
+
+[node name="MouseAttack2Label" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "Right Click - Attack 2"
+horizontal_alignment = 1
+
+[node name="Skill1Label" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "1 - Skill 1"
+horizontal_alignment = 1
+
+[node name="Skill2Label" type="Label" parent="UI/CharacterInfo"]
+layout_mode = 2
+text = "2 - Skill 2"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -50.0
+offset_right = -20.0
+offset_bottom = -20.0
+text = "Back to Menu"

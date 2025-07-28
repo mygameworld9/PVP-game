@@ -1,0 +1,153 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj6f6358ynvfe"]
+
+[ext_resource type="Script" uid="uid://b2wvj8v1g0l4l" path="res://scripts/Main.gd" id="1_0x0x0"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0x0x0")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+text = "Character Roster Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterList" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KnightBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Knight"
+
+[node name="WizardBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Wizard"
+
+[node name="SwordsmanBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Swordsman"
+
+[node name="PriestBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Priest"
+
+[node name="SkeletonBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Skeleton"
+
+[node name="ArcherBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Archer"
+
+[node name="WerewolfBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Werewolf"
+
+[node name="SlimeBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Slime"
+
+[node name="SoldierBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Soldier"
+
+[node name="ArmoredAxemanBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Armored Axeman"
+
+[node name="EliteOrcBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Elite Orc"
+
+[node name="KnightTemplarBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Knight Templar"
+
+[node name="LancerBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Lancer"
+
+[node name="ArmoredOrcBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Armored Orc"
+
+[node name="ArmoredSkeletonBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Armored Skeleton"
+
+[node name="GreatswordSkeletonBtn" type="Button" parent="CharacterList"]
+layout_mode = 2
+text = "Greatsword Skeleton"
+
+[node name="LanguageContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="LanguageLabel" type="Label" parent="LanguageContainer"]
+layout_mode = 2
+text = "Language"
+vertical_alignment = 1
+
+[node name="EnglishBtn" type="Button" parent="LanguageContainer"]
+layout_mode = 2
+text = "English"
+
+[node name="ChineseBtn" type="Button" parent="LanguageContainer"]
+layout_mode = 2
+text = "中文"
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Select a character to begin"
+horizontal_alignment = 1
