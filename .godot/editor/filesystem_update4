@@ -28,3 +28,7 @@ res://scripts/Character.gd
 res://scripts/Game.gd
 res://scripts/Knight.gd
 res://scripts/Wizard.gd
+res://scripts/Soldier.gd
+res://scripts/Lancer.gd
+res://scripts/ArmoredAxeman.gd
+res://scripts/ArmoredOrc.gd

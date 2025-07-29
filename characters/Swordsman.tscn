@@ -1,9 +1,10 @@
-[gd_scene load_steps=50 format=3 uid="uid://dxa0rml5i5ih6"]
+[gd_scene load_steps=55 format=3 uid="uid://dxa0rml5i5ih6"]
 
 [ext_resource type="Script" uid="uid://c8k4tt6kpxlue" path="res://scripts/Archer.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://cw8x865p2pjry" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Idle.png" id="2_cniw0"]
 [ext_resource type="Texture2D" uid="uid://m6chy0xgkkwl" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Attack01.png" id="2_uo8f6"]
 [ext_resource type="Texture2D" uid="uid://dmgfa5pcr0a8q" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Attack02.png" id="3_l4krl"]
+[ext_resource type="Texture2D" uid="uid://tebh76gf3yje" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Death.png" id="4_l4krl"]
 [ext_resource type="Texture2D" uid="uid://b6iglimgcoxox" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Hurt.png" id="4_xei80"]
 [ext_resource type="Texture2D" uid="uid://nsj2a0ff48h4" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Walk.png" id="6_r16ky"]
 
@@ -97,6 +98,22 @@ region = Rect2(1300, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtnr5"]
 atlas = ExtResource("3_l4krl")
 region = Rect2(1400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r16ky"]
+atlas = ExtResource("4_l4krl")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jey3"]
+atlas = ExtResource("4_l4krl")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh3gx"]
+atlas = ExtResource("4_l4krl")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lha6k"]
+atlas = ExtResource("4_l4krl")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d1efw"]
 atlas = ExtResource("4_xei80")
@@ -254,7 +271,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_r16ky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jey3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh3gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lha6k")
 }],
 "loop": false,
 "name": &"defeat",
@@ -343,7 +369,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 0.6, 0.4, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"walk"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]

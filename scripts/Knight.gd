@@ -22,6 +22,8 @@ var current_state: String = "idle"
 # Components
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var attack_area: Area2D = $AttackArea
+@onready var atk_collision_shape: CollisionShape2D = $AttackArea/atkCollisionShape2D
 
 # Movement
 var input_vector: Vector2 = Vector2.ZERO
@@ -282,29 +284,79 @@ func _execute_battle_cry():
 	movement_speed = 180.0
 
 func _execute_attack1():
-	# Left click attack: Basic slash
+	# Left click attack: Basic slash with melee collision detection
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Knight uses Attack 1: Slash!")
+		
+		# Set state to attacking and play animation
 		current_state = "attacking"
 		_update_animation()
+		
 		# Play attack1 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
 			animated_sprite.play("attack1")
-		await get_tree().create_timer(0.6).timeout
+		
+		# Wait a short delay before enabling collision detection
+		await get_tree().create_timer(0.2).timeout
+		
+		# Enable attack collision shape
+		if atk_collision_shape:
+			atk_collision_shape.disabled = false
+		
+		# Get all bodies overlapping with AttackArea and damage them
+		var overlapping_bodies = attack_area.get_overlapping_bodies()
+		for body in overlapping_bodies:
+			if body.has_method("take_damage"):
+				body.take_damage(attack_damage)
+				print("Knight hit ", body.name, " for ", attack_damage, " damage!")
+		
+		# Immediately disable collision shape after check
+		if atk_collision_shape:
+			atk_collision_shape.disabled = true
+		
+		# Wait for attack animation to finish
+		await get_tree().create_timer(0.4).timeout
+		
+		# Reset state to idle
 		if current_state == "attacking":
 			current_state = "idle"
 			_update_animation()
 
 func _execute_attack2():
-	# Right click attack: Heavy strike
+	# Right click attack: Heavy strike with melee collision detection
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Knight uses Attack 2: Heavy Strike!")
+		
+		# Set state to attacking and play animation
 		current_state = "attacking"
 		_update_animation()
+		
 		# Play attack2 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack2"):
 			animated_sprite.play("attack2")
-		await get_tree().create_timer(0.8).timeout
+		
+		# Wait a short delay before enabling collision detection
+		await get_tree().create_timer(0.3).timeout
+		
+		# Enable attack collision shape
+		if atk_collision_shape:
+			atk_collision_shape.disabled = false
+		
+		# Get all bodies overlapping with AttackArea and damage them
+		var overlapping_bodies = attack_area.get_overlapping_bodies()
+		for body in overlapping_bodies:
+			if body.has_method("take_damage"):
+				body.take_damage(attack_damage * 1.5)  # Heavy strike does 1.5x damage
+				print("Knight hit ", body.name, " for ", attack_damage * 1.5, " damage!")
+		
+		# Immediately disable collision shape after check
+		if atk_collision_shape:
+			atk_collision_shape.disabled = true
+		
+		# Wait for attack animation to finish
+		await get_tree().create_timer(0.5).timeout
+		
+		# Reset state to idle
 		if current_state == "attacking":
 			current_state = "idle"
 			_update_animation()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://d3o0a2jny35h"]
+[gd_scene load_steps=45 format=3 uid="uid://d3o0a2jny35h"]
 
 [ext_resource type="Script" uid="uid://2ck5b6fu4lmd" path="res://scripts/Soldier.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dwuxkof4vdvr7" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_26qxq"]
 [ext_resource type="Texture2D" uid="uid://d4fo1j8wox2f5" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="2_x1f84"]
 [ext_resource type="Texture2D" uid="uid://cofvqhma112vd" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Attack02.png" id="3_fotf4"]
 [ext_resource type="Texture2D" uid="uid://tp4ngk115l33" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_dhm05"]
+[ext_resource type="Texture2D" uid="uid://ylu1ypu8jpse" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="4_fotf4"]
 [ext_resource type="Texture2D" uid="uid://3tel3omtxqpc" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="6_sbbmb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
@@ -57,6 +58,22 @@ region = Rect2(400, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqygf"]
 atlas = ExtResource("3_fotf4")
 region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbbmb"]
+atlas = ExtResource("4_fotf4")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vukpa"]
+atlas = ExtResource("4_fotf4")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppg12"]
+atlas = ExtResource("4_fotf4")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pkjy"]
+atlas = ExtResource("4_fotf4")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne14s"]
 atlas = ExtResource("4_dhm05")
@@ -180,7 +197,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_sbbmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vukpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppg12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pkjy")
 }],
 "loop": false,
 "name": &"defeat",
@@ -256,18 +282,29 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(80, 60)
+
 [node name="Soldier" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -2)
+position = Vector2(-1.5, -2)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.6, 0.6, 0.6, 1)
+modulate = Color(0.4, 0.6, 0.8, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"walk"
+animation = &"defeat"
 autoplay = "idle"
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_2")
+disabled = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchors_preset = 8

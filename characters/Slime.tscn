@@ -1,9 +1,10 @@
-[gd_scene load_steps=43 format=3 uid="uid://8a4dx1j4hhct"]
+[gd_scene load_steps=48 format=3 uid="uid://8a4dx1j4hhct"]
 
 [ext_resource type="Script" uid="uid://cdqparfjw471h" path="res://scripts/Slime.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://bpsto12lrwp8x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Attack01.png" id="2_wflep"]
 [ext_resource type="Texture2D" uid="uid://dmx4akwvbrbiv" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Hurt.png" id="3_k655p"]
 [ext_resource type="Texture2D" uid="uid://dfpqfx8vtkb47" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Attack02.png" id="3_w3iwy"]
+[ext_resource type="Texture2D" uid="uid://ewtceivcjvk7" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Death.png" id="4_cjt1c"]
 [ext_resource type="Texture2D" uid="uid://cytkoe7udr5pp" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Idle.png" id="4_w3iwy"]
 [ext_resource type="Texture2D" uid="uid://o55i3rmyjosf" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Walk.png" id="6_cjt1c"]
 
@@ -81,6 +82,22 @@ region = Rect2(1000, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_k20ug"]
 atlas = ExtResource("3_w3iwy")
 region = Rect2(1100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm7qc"]
+atlas = ExtResource("4_cjt1c")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_df6vm"]
+atlas = ExtResource("4_cjt1c")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6shjr"]
+atlas = ExtResource("4_cjt1c")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltqwb"]
+atlas = ExtResource("4_cjt1c")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p27ij"]
 atlas = ExtResource("3_k655p")
@@ -214,7 +231,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_vm7qc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_df6vm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6shjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltqwb")
 }],
 "loop": false,
 "name": &"defeat",
@@ -294,7 +320,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.2, 0.8, 0.2, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"attack1"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]

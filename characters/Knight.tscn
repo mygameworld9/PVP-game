@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://bpopgr1qn6gw6"]
+[gd_scene load_steps=50 format=3 uid="uid://bpopgr1qn6gw6"]
 
 [ext_resource type="Script" uid="uid://cus1y2uj8mxf2" path="res://scripts/Knight.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://bsbuls5rkk5w3" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Attack01.png" id="2_oo2ix"]
 [ext_resource type="Texture2D" uid="uid://266kqbabvjn5" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Attack02.png" id="3_adxal"]
 [ext_resource type="Texture2D" uid="uid://b7ja3vcya2ijv" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Hurt.png" id="4_imyk4"]
+[ext_resource type="Texture2D" uid="uid://bp0bgrc64sit7" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Death.png" id="4_tof8n"]
 [ext_resource type="Texture2D" uid="uid://vmibkllpia2f" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Idle.png" id="5_tof8n"]
 [ext_resource type="Texture2D" uid="uid://bfswipclyugvn" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight/Knight/Knight-Walk.png" id="6_6u0g4"]
 
@@ -77,6 +78,22 @@ region = Rect2(800, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvtp5"]
 atlas = ExtResource("3_adxal")
 region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek88u"]
+atlas = ExtResource("4_tof8n")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m86sj"]
+atlas = ExtResource("4_tof8n")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1akh"]
+atlas = ExtResource("4_tof8n")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkaui"]
+atlas = ExtResource("4_tof8n")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ak4f1"]
 atlas = ExtResource("4_imyk4")
@@ -215,7 +232,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_ek88u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m86sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1akh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkaui")
 }],
 "loop": false,
 "name": &"defeat",
@@ -291,7 +317,11 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(15.5, 18)
+
 [node name="Knight" type="CharacterBody2D"]
+position = Vector2(-1, -7)
 script = ExtResource("2_0x0x0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -304,6 +334,15 @@ sprite_frames = SubResource("SpriteFrames_1")
 animation = &"walk"
 autoplay = "idle"
 
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(11.25, -2)
+shape = SubResource("RectangleShape2D_2")
+disabled = true
+
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -314,8 +353,11 @@ offset_left = -25.0
 offset_top = -40.0
 offset_right = 25.0
 offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
 max_value = 1.0
 value = 1.0
+metadata/_edit_use_anchors_ = true
 
 [node name="NameLabel" type="Label" parent="."]
 anchors_preset = 8
@@ -327,5 +369,8 @@ offset_left = -30.0
 offset_top = -50.0
 offset_right = 30.0
 offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Knight"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

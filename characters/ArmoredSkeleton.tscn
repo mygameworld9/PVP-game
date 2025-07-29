@@ -1,8 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://dtkhlm4fulkcs"]
+[gd_scene load_steps=50 format=3 uid="uid://dtkhlm4fulkcs"]
 
 [ext_resource type="Script" uid="uid://docb602jcm13p" path="res://scripts/ArmoredSkeleton.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dipbk45r0smn4" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Attack01.png" id="2_7r85f"]
 [ext_resource type="Texture2D" uid="uid://byhcq25vr3kcg" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Attack02.png" id="3_4yce5"]
+[ext_resource type="Texture2D" uid="uid://dbvuw0qda44it" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Death.png" id="4_4yce5"]
 [ext_resource type="Texture2D" uid="uid://bmcada1ty2vjr" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Hurt.png" id="4_l4yfl"]
 [ext_resource type="Texture2D" uid="uid://dgiytbag33h1c" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Idle.png" id="5_aoo7q"]
 [ext_resource type="Texture2D" uid="uid://dh438pphxha58" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Walk.png" id="6_0iabh"]
@@ -77,6 +78,22 @@ region = Rect2(700, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_diug1"]
 atlas = ExtResource("3_4yce5")
 region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4yfl"]
+atlas = ExtResource("4_4yce5")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aoo7q"]
+atlas = ExtResource("4_4yce5")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iabh"]
+atlas = ExtResource("4_4yce5")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0u14"]
+atlas = ExtResource("4_4yce5")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p34mb"]
 atlas = ExtResource("4_l4yfl")
@@ -215,7 +232,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_l4yfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aoo7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iabh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0u14")
 }],
 "loop": false,
 "name": &"defeat",
@@ -291,6 +317,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7r85f"]
+size = Vector2(80, 60)
+
 [node name="ArmoredSkeleton" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -301,7 +330,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.7, 0.7, 0.7, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"hurt"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -329,3 +358,11 @@ offset_right = 60.0
 offset_bottom = -40.0
 text = "Armored Skeleton"
 horizontal_alignment = 1
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_7r85f")
+disabled = true

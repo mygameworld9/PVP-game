@@ -1,8 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://cgqixqvrn3rhx"]
+[gd_scene load_steps=48 format=3 uid="uid://cgqixqvrn3rhx"]
 
 [ext_resource type="Script" uid="uid://c3raf3ynyjw48" path="res://scripts/ArmoredOrc.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://cnscua3qrys7b" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Attack01.png" id="2_6bfko"]
 [ext_resource type="Texture2D" uid="uid://bnm2bxevyq0fm" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Attack02.png" id="3_aajp4"]
+[ext_resource type="Texture2D" uid="uid://c1qtvyqjhhm7a" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Death.png" id="4_aajp4"]
 [ext_resource type="Texture2D" uid="uid://bo377r27iikpo" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Hurt.png" id="4_s15ny"]
 [ext_resource type="Texture2D" uid="uid://c04t3n44kxbd0" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Idle.png" id="5_rgwa7"]
 [ext_resource type="Texture2D" uid="uid://de7tatkm36v6m" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Orc/Armored Orc/Armored Orc-Walk.png" id="6_g7ayo"]
@@ -69,6 +70,22 @@ region = Rect2(600, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpjvg"]
 atlas = ExtResource("3_aajp4")
 region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s15ny"]
+atlas = ExtResource("4_aajp4")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgwa7"]
+atlas = ExtResource("4_aajp4")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7ayo"]
+atlas = ExtResource("4_aajp4")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3p75"]
+atlas = ExtResource("4_aajp4")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2c4h"]
 atlas = ExtResource("4_s15ny")
@@ -201,7 +218,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_s15ny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgwa7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7ayo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3p75")
 }],
 "loop": false,
 "name": &"defeat",
@@ -277,6 +303,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwkdm"]
+size = Vector2(80, 60)
+
 [node name="ArmoredOrc" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -287,7 +316,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 0.4, 0.2, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"walk"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -315,3 +344,11 @@ offset_right = 50.0
 offset_bottom = -40.0
 text = "Armored Orc"
 horizontal_alignment = 1
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_kwkdm")
+disabled = true

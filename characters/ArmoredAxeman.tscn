@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://b22cc1lu8l8sv"]
+[gd_scene load_steps=51 format=3 uid="uid://b22cc1lu8l8sv"]
 
 [ext_resource type="Script" uid="uid://eddown10kpg4" path="res://scripts/ArmoredAxeman.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dw5wop3xhmd71" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Attack01.png" id="2_o5sui"]
 [ext_resource type="Texture2D" uid="uid://blwom4tj7ibu2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Attack02.png" id="3_bo8su"]
+[ext_resource type="Texture2D" uid="uid://e8qugnf53gso" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Death.png" id="4_bo8su"]
 [ext_resource type="Texture2D" uid="uid://jasbkofmvh1y" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Hurt.png" id="4_n0uo5"]
 [ext_resource type="Texture2D" uid="uid://dkbf662ubqap8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Idle.png" id="5_c8rfx"]
 [ext_resource type="Texture2D" uid="uid://c0lk27xujty4p" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Walk.png" id="6_l28sj"]
@@ -81,6 +82,22 @@ region = Rect2(700, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ingy"]
 atlas = ExtResource("3_bo8su")
 region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0uo5"]
+atlas = ExtResource("4_bo8su")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8rfx"]
+atlas = ExtResource("4_bo8su")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l28sj"]
+atlas = ExtResource("4_bo8su")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yy4w"]
+atlas = ExtResource("4_bo8su")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t6tfw"]
 atlas = ExtResource("4_n0uo5")
@@ -222,7 +239,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_n0uo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8rfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l28sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yy4w")
 }],
 "loop": false,
 "name": &"defeat",
@@ -298,6 +324,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eb61x"]
+size = Vector2(80, 60)
+
 [node name="ArmoredAxeman" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -308,7 +337,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 0.6, 0.4, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"idle"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -336,3 +365,11 @@ offset_right = 50.0
 offset_bottom = -40.0
 text = "Armored Axeman"
 horizontal_alignment = 1
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_eb61x")
+disabled = true

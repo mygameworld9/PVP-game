@@ -1,10 +1,11 @@
-[gd_scene load_steps=49 format=3 uid="uid://clsojg7uiedka"]
+[gd_scene load_steps=54 format=3 uid="uid://clsojg7uiedka"]
 
 [ext_resource type="Script" uid="uid://btn43prdf3q3n" path="res://scripts/Werewolf.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://b5lpi2p3h4l6t" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Idle.png" id="2_ct2t5"]
 [ext_resource type="Texture2D" uid="uid://bq6xxm2djgrfg" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Attack01.png" id="2_lttlw"]
 [ext_resource type="Texture2D" uid="uid://drauyrhuqs2pd" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Attack02.png" id="3_g0bsd"]
 [ext_resource type="Texture2D" uid="uid://crcdhju4ocp6y" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Hurt.png" id="4_3mp85"]
+[ext_resource type="Texture2D" uid="uid://ciqpbvhqffvw7" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Death.png" id="4_g0bsd"]
 [ext_resource type="Texture2D" uid="uid://bqsd47370435e" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Walk.png" id="6_ls2et"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
@@ -97,6 +98,22 @@ region = Rect2(1100, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yus4o"]
 atlas = ExtResource("3_g0bsd")
 region = Rect2(1200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ls2et"]
+atlas = ExtResource("4_g0bsd")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b336"]
+atlas = ExtResource("4_g0bsd")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixppk"]
+atlas = ExtResource("4_g0bsd")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsvur"]
+atlas = ExtResource("4_g0bsd")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_unjdy"]
 atlas = ExtResource("4_3mp85")
@@ -248,7 +265,19 @@ animations = [{
 "name": &"attack2",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ls2et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b336")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixppk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsvur")
+}],
 "loop": false,
 "name": &"defeat",
 "speed": 5.0
@@ -333,7 +362,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 0.6, 0.4, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"attack1"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]

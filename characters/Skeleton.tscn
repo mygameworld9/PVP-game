@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://20ticg212i21"]
+[gd_scene load_steps=45 format=3 uid="uid://20ticg212i21"]
 
 [ext_resource type="Script" uid="uid://cbmpaku6t56kb" path="res://scripts/Skeleton.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://b5g237dirhv7e" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton/Skeleton/Skeleton-Attack01.png" id="2_n43vp"]
 [ext_resource type="Texture2D" uid="uid://m0twm51ygmgk" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton/Skeleton/Skeleton-Attack02.png" id="3_m6t0v"]
+[ext_resource type="Texture2D" uid="uid://bwxgdc0rovey8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton Archer/Skeleton Archer/Skeleton Archer-Death.png" id="4_m6t0v"]
 [ext_resource type="Texture2D" uid="uid://c4g0kgy8yhmn" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton/Skeleton/Skeleton-Hurt.png" id="4_pdvuh"]
 [ext_resource type="Texture2D" uid="uid://8oqrderclq4l" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton/Skeleton/Skeleton-Idle.png" id="5_gvxqx"]
 [ext_resource type="Texture2D" uid="uid://by4gsm1e6baiw" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Skeleton/Skeleton/Skeleton-Walk.png" id="6_jkpmf"]
@@ -61,6 +62,22 @@ region = Rect2(500, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_j82d3"]
 atlas = ExtResource("3_m6t0v")
 region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6t0v"]
+atlas = ExtResource("4_m6t0v")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdvuh"]
+atlas = ExtResource("4_m6t0v")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvxqx"]
+atlas = ExtResource("4_m6t0v")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkpmf"]
+atlas = ExtResource("4_m6t0v")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dxmla"]
 atlas = ExtResource("4_pdvuh")
@@ -187,7 +204,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_m6t0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdvuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvxqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkpmf")
 }],
 "loop": false,
 "name": &"defeat",
@@ -273,7 +299,7 @@ shape = SubResource("RectangleShape2D_1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.8, 0.8, 0.8, 1)
 sprite_frames = SubResource("SpriteFrames_1")
-animation = &"walk"
+animation = &"defeat"
 autoplay = "idle"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
