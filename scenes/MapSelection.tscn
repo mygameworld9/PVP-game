@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://map_selection"]
+[gd_scene load_steps=2 format=3 uid="uid://cdculuxm1cp0m"]
 
-[ext_resource type="Script" path="res://scripts/MapSelection.gd" id="1_0x0x0"]
+[ext_resource type="Script" uid="uid://b4bs02ryeg3eb" path="res://scripts/MapSelection.gd" id="1_0x0x0"]
 
 [node name="MapSelection" type="Control"]
 layout_mode = 3
@@ -115,4 +115,4 @@ offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Select a map to begin"
-horizontal_alignment = 1 
+horizontal_alignment = 1

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://tilemap_drawer_scene"]
+[gd_scene load_steps=2 format=3 uid="uid://851s2vq2kyr0"]
 
-[ext_resource type="Script" path="res://scripts/TileMapDrawer.gd" id="1_drawer"]
+[ext_resource type="Script" uid="uid://buhlfwtukvy60" path="res://scripts/TileMapDrawer.gd" id="1_drawer"]
 
 [node name="TileMapDrawer" type="Node2D"]
 script = ExtResource("1_drawer")
@@ -20,6 +20,8 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="UIPanel/VBoxContainer"]
 layout_mode = 2
@@ -47,4 +49,4 @@ text = "清除地图"
 
 [node name="SaveButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
 layout_mode = 2
-text = "保存地图" 
+text = "保存地图"

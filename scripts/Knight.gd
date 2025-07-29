@@ -17,7 +17,7 @@ var current_health: int
 var is_alive: bool = true
 
 # State Machine
-var current_state: String = "idle"
+@onready var state_machine: Node = $StateMachine
 
 # Components
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -62,7 +62,28 @@ func _ready():
 	_update_health_display()
 
 func _setup_state_machine():
-	current_state = "idle"
+	# Connect state machine signal
+	if state_machine:
+		state_machine.state_changed.connect(_on_state_changed)
+
+func _on_state_changed(new_state: String, old_state: String):
+	# Handle state changes and play appropriate animations
+	if animated_sprite:
+		match new_state:
+			"idle":
+				animated_sprite.play("idle")
+			"walking":
+				animated_sprite.play("walk")
+			"running":
+				animated_sprite.play("run")
+			"jumping":
+				animated_sprite.play("idle")  # Use idle animation for jumping for now
+			"attacking":
+				animated_sprite.play("attack1")
+			"taking_damage":
+				animated_sprite.play("hurt")
+			"defeated":
+				animated_sprite.play("defeat")
 
 func _setup_health_bar():
 	if health_bar:
@@ -94,6 +115,13 @@ func _physics_process(delta):
 	if input_vector != Vector2.ZERO:
 		velocity.x = input_vector.x * movement_speed
 		facing_direction = input_vector.normalized()
+		
+		# Update sprite direction based on movement
+		if animated_sprite:
+			if input_vector.x > 0:
+				animated_sprite.flip_h = false  # Face right
+			elif input_vector.x < 0:
+				animated_sprite.flip_h = true   # Face left
 	else:
 		velocity.x = 0
 	
@@ -113,41 +141,21 @@ func _physics_process(delta):
 
 func _update_state():
 	# 如果角色正在攻击、受伤或已倒下，则不要根据移动来更新状态
+	var current_state = state_machine.get_current_state()
 	if current_state == "attacking" or current_state == "taking_damage" or current_state == "defeated":
 		return # 提前退出函数，不执行下面的逻辑
 
 	if is_jumping:
-		current_state = "jumping"
-		_update_animation()
+		state_machine.transition_to("jumping")
 		return
 	
 	if input_vector != Vector2.ZERO:
 		if abs(input_vector.x) > 0.5:
-			current_state = "walking"
+			state_machine.transition_to("walking")
 		else:
-			current_state = "idle"
+			state_machine.transition_to("idle")
 	else:
-		current_state = "idle"
-	
-	_update_animation()
-
-func _update_animation():
-	if animated_sprite:
-		match current_state:
-			"idle":
-				animated_sprite.play("idle")
-			"walking":
-				animated_sprite.play("walk")
-			"running":
-				animated_sprite.play("run")
-			"jumping":
-				animated_sprite.play("idle")  # Use idle animation for jumping for now
-			"attacking":
-				animated_sprite.play("attack1")
-			"taking_damage":
-				animated_sprite.play("damage")
-			"defeated":
-				animated_sprite.play("defeat")
+		state_machine.transition_to("idle")
 
 func _handle_input():
 	# 如果角色已死亡，不处理输入
@@ -181,18 +189,15 @@ func take_damage(damage: int):
 		is_alive = false
 		_die()
 	else:
-		current_state = "taking_damage"
-		_update_animation()
+		state_machine.transition_to("taking_damage")
 		# Reset damage state after a short time
 		await get_tree().create_timer(0.3).timeout
-		if current_state == "taking_damage":
-			current_state = "idle"
-			_update_animation()
+		if state_machine.get_current_state() == "taking_damage":
+			state_machine.transition_to("idle")
 
 func _die():
 	"""Knight死亡处理"""
-	current_state = "defeated"
-	_update_animation()
+	state_machine.transition_to("defeated")
 	
 	# 禁用输入和移动
 	set_physics_process(false)
@@ -228,13 +233,11 @@ func use_skill(skill_name: String):
 		# Execute skill
 		match skill_name:
 			"basic_attack":
-				current_state = "attacking"
-				_update_animation()
+				state_machine.transition_to("attacking")
 				# Reset attack state after a short time
 				await get_tree().create_timer(0.5).timeout
-				if current_state == "attacking":
-					current_state = "idle"
-					_update_animation()
+				if state_machine.get_current_state() == "attacking":
+					state_machine.transition_to("idle")
 			"shield_bash":
 				_execute_shield_bash()
 			"battle_cry":
@@ -262,15 +265,13 @@ func _execute_shield_bash():
 	# Shield Bash: High damage melee attack with knockback
 	print("Warrior uses Shield Bash!")
 	attack_damage = 50  # Temporary damage boost
-	current_state = "attacking"
-	_update_animation()
+	state_machine.transition_to("attacking")
 	
 	# Reset damage after attack
 	await get_tree().create_timer(0.5).timeout
 	attack_damage = 35
-	if current_state == "attacking":
-		current_state = "idle"
-		_update_animation()
+	if state_machine.get_current_state() == "attacking":
+		state_machine.transition_to("idle")
 
 func _execute_battle_cry():
 	# Battle Cry: Buffs attack damage and movement speed
@@ -285,12 +286,12 @@ func _execute_battle_cry():
 
 func _execute_attack1():
 	# Left click attack: Basic slash with melee collision detection
+	var current_state = state_machine.get_current_state()
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Knight uses Attack 1: Slash!")
 		
-		# Set state to attacking and play animation
-		current_state = "attacking"
-		_update_animation()
+		# Set state to attacking
+		state_machine.transition_to("attacking")
 		
 		# Play attack1 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
@@ -318,18 +319,17 @@ func _execute_attack1():
 		await get_tree().create_timer(0.4).timeout
 		
 		# Reset state to idle
-		if current_state == "attacking":
-			current_state = "idle"
-			_update_animation()
+		if state_machine.get_current_state() == "attacking":
+			state_machine.transition_to("idle")
 
 func _execute_attack2():
 	# Right click attack: Heavy strike with melee collision detection
+	var current_state = state_machine.get_current_state()
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Knight uses Attack 2: Heavy Strike!")
 		
-		# Set state to attacking and play animation
-		current_state = "attacking"
-		_update_animation()
+		# Set state to attacking
+		state_machine.transition_to("attacking")
 		
 		# Play attack2 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack2"):
@@ -357,9 +357,8 @@ func _execute_attack2():
 		await get_tree().create_timer(0.5).timeout
 		
 		# Reset state to idle
-		if current_state == "attacking":
-			current_state = "idle"
-			_update_animation()
+		if state_machine.get_current_state() == "attacking":
+			state_machine.transition_to("idle")
 
 func get_character_info() -> Dictionary:
 	return {
@@ -371,5 +370,5 @@ func get_character_info() -> Dictionary:
 		"attack_style": attack_style,
 		"skills": skills,
 		"is_alive": is_alive,
-		"current_state": current_state
+		"current_state": state_machine.get_current_state()
 	} 

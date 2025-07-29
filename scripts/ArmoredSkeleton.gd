@@ -95,6 +95,13 @@ func _physics_process(delta):
 	if input_vector != Vector2.ZERO:
 		velocity.x = input_vector.x * movement_speed
 		facing_direction = input_vector.normalized()
+		
+		# Update sprite direction based on movement
+		if animated_sprite:
+			if input_vector.x > 0:
+				animated_sprite.flip_h = false  # Face right
+			elif input_vector.x < 0:
+				animated_sprite.flip_h = true   # Face left
 	else:
 		velocity.x = 0
 	

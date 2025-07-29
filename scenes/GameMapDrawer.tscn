@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://game_map_drawer_scene"]
+[gd_scene load_steps=2 format=3 uid="uid://bjjqmhgwhv81e"]
 
-[ext_resource type="Script" path="res://scripts/GameMapDrawer.gd" id="1_game_drawer"]
+[ext_resource type="Script" uid="uid://d2bms6ui7g1mo" path="res://scripts/GameMapDrawer.gd" id="1_game_drawer"]
 
 [node name="GameMapDrawer" type="Node2D"]
 script = ExtResource("1_game_drawer")
@@ -20,6 +20,8 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="DrawPanel/VBoxContainer"]
 layout_mode = 2
@@ -63,4 +65,4 @@ text = "保存地图"
 
 [node name="LoadButton" type="Button" parent="DrawPanel/VBoxContainer/ButtonContainer"]
 layout_mode = 2
-text = "加载地图" 
+text = "加载地图"

@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://map_editor_scene"]
+[gd_scene load_steps=2 format=3 uid="uid://dyt167s24nhag"]
 
-[ext_resource type="Script" path="res://scripts/MapEditor.gd" id="1_map_editor"]
+[ext_resource type="Script" uid="uid://bdllgrehbll5d" path="res://scripts/MapEditor.gd" id="1_map_editor"]
 
 [node name="MapEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_map_editor")
 
 [node name="TileMapContainer" type="Node2D" parent="."]
@@ -19,6 +21,7 @@ anchor_right = 1.0
 offset_left = -350.0
 offset_right = -10.0
 offset_bottom = 600.0
+grow_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UIPanel"]
 layout_mode = 1
@@ -29,6 +32,8 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="UIPanel/VBoxContainer"]
 layout_mode = 2
@@ -91,8 +96,9 @@ offset_left = 10.0
 offset_top = -80.0
 offset_right = 400.0
 offset_bottom = -10.0
+grow_vertical = 0
 text = "操作说明：
 - 鼠标中键拖拽：移动相机
 - 鼠标滚轮：缩放
 - 左键点击：绘制瓦片
-- 选择层和瓦片后点击'切换绘制'开始绘制" 
+- 选择层和瓦片后点击'切换绘制'开始绘制"

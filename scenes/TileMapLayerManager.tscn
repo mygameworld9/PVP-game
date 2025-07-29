@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bybs23k1y7yl8"]
+[gd_scene load_steps=2 format=3 uid="uid://7lk875h22yft"]
 
 [ext_resource type="Script" uid="uid://cw8dsrf2trtx0" path="res://scripts/TileMapLayerManager.gd" id="1_layer_manager"]
 

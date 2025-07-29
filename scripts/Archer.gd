@@ -2,14 +2,14 @@ extends CharacterBody2D
 
 # Character Stats
 @export var character_name: String = "Archer"
-@export var max_health: int = 110
-@export var movement_speed: float = 220.0
-@export var attack_damage: int = 35
+@export var max_health: int = 120
+@export var movement_speed: float = 200.0
+@export var attack_damage: int = 25
 @export var attack_style: String = "ranged"
 @export var attack_range: float = 150.0
 
 # Skills
-@export var skills: Array[String] = ["basic_attack", "precise_shot", "rapid_fire"]
+@export var skills: Array[String] = ["quick_shot", "precise_shot", "rapid_fire"]
 @export var skill_cooldowns: Dictionary = {}
 
 # Current Stats
@@ -17,7 +17,7 @@ var current_health: int
 var is_alive: bool = true
 
 # State Machine
-var current_state: String = "idle"
+@onready var state_machine: Node = $StateMachine
 
 # Components
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -42,20 +42,16 @@ func _ready():
 	_update_health_display()
 	_setup_collision_layers()
 	
-	# Start with idle animation
-	if animated_sprite:
-		animated_sprite.play("idle")
-	
 	# Set Archer-specific stats
 	character_name = "Archer"
-	max_health = 110
-	movement_speed = 220.0
-	attack_damage = 35
+	max_health = 120
+	movement_speed = 200.0
+	attack_damage = 25
 	attack_style = "ranged"
 	attack_range = 150.0
 	
 	# Archer skills
-	skills = ["basic_attack", "precise_shot", "rapid_fire"]
+	skills = ["quick_shot", "precise_shot", "rapid_fire"]
 	skill_cooldowns = {
 		"precise_shot": 0.0,
 		"rapid_fire": 0.0
@@ -66,7 +62,28 @@ func _ready():
 	_update_health_display()
 
 func _setup_state_machine():
-	current_state = "idle"
+	# Connect state machine signal
+	if state_machine:
+		state_machine.state_changed.connect(_on_state_changed)
+
+func _on_state_changed(new_state: String, old_state: String):
+	# Handle state changes and play appropriate animations
+	if animated_sprite:
+		match new_state:
+			"idle":
+				animated_sprite.play("idle")
+			"walking":
+				animated_sprite.play("walk")
+			"running":
+				animated_sprite.play("run")
+			"jumping":
+				animated_sprite.play("idle")  # Use idle animation for jumping for now
+			"attacking":
+				animated_sprite.play("attack1")
+			"taking_damage":
+				animated_sprite.play("hurt")
+			"defeated":
+				animated_sprite.play("defeat")
 
 func _setup_health_bar():
 	if health_bar:
@@ -98,6 +115,13 @@ func _physics_process(delta):
 	if input_vector != Vector2.ZERO:
 		velocity.x = input_vector.x * movement_speed
 		facing_direction = input_vector.normalized()
+		
+		# Update sprite direction based on movement
+		if animated_sprite:
+			if input_vector.x > 0:
+				animated_sprite.flip_h = false  # Face right
+			elif input_vector.x < 0:
+				animated_sprite.flip_h = true   # Face left
 	else:
 		velocity.x = 0
 	
@@ -115,65 +139,158 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func _handle_input():
-	input_vector = Vector2.ZERO
-	if Input.is_action_pressed("move_right"):
-		input_vector.x += 1
-	if Input.is_action_pressed("move_left"):
-		input_vector.x -= 1
-	input_vector = input_vector.normalized()
-
 func _update_state():
 	# 如果角色正在攻击、受伤或已倒下，则不要根据移动来更新状态
+	var current_state = state_machine.get_current_state()
 	if current_state == "attacking" or current_state == "taking_damage" or current_state == "defeated":
 		return # 提前退出函数，不执行下面的逻辑
 
 	if is_jumping:
-		current_state = "jumping"
-		_update_animation()
+		state_machine.transition_to("jumping")
 		return
 	
 	if input_vector != Vector2.ZERO:
 		if abs(input_vector.x) > 0.5:
-			current_state = "walking"
+			state_machine.transition_to("walking")
 		else:
-			current_state = "idle"
+			state_machine.transition_to("idle")
 	else:
-		current_state = "idle"
+		state_machine.transition_to("idle")
+
+func _handle_input():
+	# 如果角色已死亡，不处理输入
+	if not is_alive:
+		return
 	
-	_update_animation()
-
-func _update_animation():
-	if animated_sprite:
-		match current_state:
-			"idle":
-				animated_sprite.play("idle")
-			"walking":
-				animated_sprite.play("walk")
-			"jumping":
-				animated_sprite.play("idle") # Placeholder for jump animation
-			"attacking":
-				animated_sprite.play("attack1")
-			"taking_damage":
-				animated_sprite.play("hurt")
-			"defeated":
-				animated_sprite.play("defeat")
-
-func _input(event):
+	input_vector = Vector2.ZERO
+	
+	if Input.is_action_pressed("move_right"):
+		input_vector.x += 1
+	if Input.is_action_pressed("move_left"):
+		input_vector.x -= 1
+	
+	input_vector = input_vector.normalized()
+	
 	# Handle mouse attacks
-	if event.is_action_pressed("attack1"):
+	if Input.is_action_just_pressed("attack1"):
 		_execute_attack1()
-	elif event.is_action_pressed("attack2"):
+	elif Input.is_action_just_pressed("attack2"):
 		_execute_attack2()
+
+func take_damage(damage: int):
+	if not is_alive:
+		return
+	
+	current_health -= damage
+	_update_health_display()
+	
+	if current_health <= 0:
+		current_health = 0
+		is_alive = false
+		_die()
+	else:
+		state_machine.transition_to("taking_damage")
+		# Reset damage state after a short time
+		await get_tree().create_timer(0.3).timeout
+		if state_machine.get_current_state() == "taking_damage":
+			state_machine.transition_to("idle")
+
+func _die():
+	"""Archer死亡处理"""
+	state_machine.transition_to("defeated")
+	
+	# 禁用输入和移动
+	set_physics_process(false)
+	
+	# 播放死亡动画
+	if animated_sprite:
+		animated_sprite.play("defeat")
+		# 等待死亡动画播放完成
+		await animated_sprite.animation_finished
+	
+	# 调用基础类的死亡完成处理
+	_on_death_complete()
+
+func _on_death_complete():
+	"""Archer死亡完成后的特殊处理"""
+	print("Archer has fallen in battle!")
+	# 可以在这里添加Archer特有的死亡效果
+
+func heal(amount: int):
+	if not is_alive:
+		return
+	
+	current_health = min(current_health + amount, max_health)
+	_update_health_display()
+
+func use_skill(skill_name: String):
+	if skill_name in skills:
+		# Check cooldown
+		if skill_name in skill_cooldowns:
+			if skill_cooldowns[skill_name] > 0:
+				return false
+		
+		# Execute skill
+		match skill_name:
+			"quick_shot":
+				state_machine.transition_to("attacking")
+				# Reset attack state after a short time
+				await get_tree().create_timer(0.5).timeout
+				if state_machine.get_current_state() == "attacking":
+					state_machine.transition_to("idle")
+			"precise_shot":
+				_execute_precise_shot()
+			"rapid_fire":
+				_execute_rapid_fire()
+		
+		# Set cooldown
+		if skill_name in skill_cooldowns:
+			match skill_name:
+				"precise_shot":
+					skill_cooldowns[skill_name] = 2.0  # 2 second cooldown
+				"rapid_fire":
+					skill_cooldowns[skill_name] = 5.0  # 5 second cooldown
+		
+		return true
+	return false
+
+func _execute_special_skill():
+	# Archer's special skill: Precise Shot
+	if Input.is_action_just_pressed("skill_1"):
+		use_skill("precise_shot")
+	elif Input.is_action_just_pressed("skill_2"):
+		use_skill("rapid_fire")
+
+func _execute_precise_shot():
+	# Precise Shot: High damage single shot
+	print("Archer uses Precise Shot!")
+	attack_damage = 40  # Temporary damage boost
+	state_machine.transition_to("attacking")
+	
+	# Reset damage after attack
+	await get_tree().create_timer(0.5).timeout
+	attack_damage = 25
+	if state_machine.get_current_state() == "attacking":
+		state_machine.transition_to("idle")
+
+func _execute_rapid_fire():
+	# Rapid Fire: Multiple quick shots
+	print("Archer uses Rapid Fire!")
+	attack_damage = 15  # Lower damage but multiple hits
+	state_machine.transition_to("attacking")
+	
+	# Reset after 3 seconds
+	await get_tree().create_timer(3.0).timeout
+	attack_damage = 25
 
 func _execute_attack1():
 	# Left click attack: Quick Shot with melee collision detection
+	var current_state = state_machine.get_current_state()
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Archer uses Attack 1: Quick Shot!")
 		
-		# Set state to attacking and play animation
-		current_state = "attacking"
-		_update_animation()
+		# Set state to attacking
+		state_machine.transition_to("attacking")
 		
 		# Play attack1 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
@@ -201,18 +318,17 @@ func _execute_attack1():
 		await get_tree().create_timer(0.4).timeout
 		
 		# Reset state to idle
-		if current_state == "attacking":
-			current_state = "idle"
-			_update_animation()
+		if state_machine.get_current_state() == "attacking":
+			state_machine.transition_to("idle")
 
 func _execute_attack2():
 	# Right click attack: Precise Shot with melee collision detection
+	var current_state = state_machine.get_current_state()
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
-		print("Archer uses Precise Shot!")
+		print("Archer uses Attack 2: Precise Shot!")
 		
-		# Set state to attacking and play animation
-		current_state = "attacking"
-		_update_animation()
+		# Set state to attacking
+		state_machine.transition_to("attacking")
 		
 		# Play attack2 animation
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack2"):
@@ -240,91 +356,8 @@ func _execute_attack2():
 		await get_tree().create_timer(0.5).timeout
 		
 		# Reset state to idle
-		if current_state == "attacking":
-			current_state = "idle"
-			_update_animation()
-
-func take_damage(damage: int):
-	if current_state != "defeated":
-		current_health -= damage
-		_update_health_display()
-		
-		if current_health <= 0:
-			current_health = 0
-			is_alive = false
-			current_state = "defeated"
-			_update_animation()
-		else:
-			current_state = "taking_damage"
-			_update_animation()
-			await get_tree().create_timer(0.5).timeout
-			if current_state == "taking_damage":
-				current_state = "idle"
-				_update_animation()
-
-func use_skill(skill_name: String) -> bool:
-	if skill_name in skills and skill_cooldowns.get(skill_name, 0.0) <= 0.0:
-		# Execute skill
-		match skill_name:
-			"basic_attack":
-				current_state = "attacking"
-				# Play attack1 animation directly
-				if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
-					animated_sprite.play("attack1")
-				# Reset attack state after a short time
-				await get_tree().create_timer(0.5).timeout
-				if current_state == "attacking":
-					current_state = "idle"
-					_update_animation()
-			"precise_shot":
-				_execute_precise_shot()
-			"rapid_fire":
-				_execute_rapid_fire()
-		
-		# Set cooldown
-		if skill_name in skill_cooldowns:
-			match skill_name:
-				"precise_shot":
-					skill_cooldowns[skill_name] = 6.0  # 6 second cooldown
-				"rapid_fire":
-					skill_cooldowns[skill_name] = 12.0  # 12 second cooldown
-		
-		return true
-	return false
-
-func _execute_special_skill():
-	# Archer's special skills
-	if Input.is_action_just_pressed("skill_1"):
-		use_skill("precise_shot")
-	elif Input.is_action_just_pressed("skill_2"):
-		use_skill("rapid_fire")
-
-func _execute_precise_shot():
-	# Precise Shot: High damage single shot
-	print("Archer uses Precise Shot!")
-	attack_damage = 60  # Temporary damage boost
-	current_state = "attacking"
-	# Play attack1 animation directly
-	if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
-		animated_sprite.play("attack1")
-	
-	# Reset damage after attack
-	await get_tree().create_timer(0.5).timeout
-	attack_damage = 35
-	if current_state == "attacking":
-		current_state = "idle"
-		_update_animation()
-
-func _execute_rapid_fire():
-	# Rapid Fire: Multiple quick shots
-	print("Archer uses Rapid Fire!")
-	attack_damage += 20
-	movement_speed += 50
-	
-	# Reset after 8 seconds
-	await get_tree().create_timer(8.0).timeout
-	attack_damage = 35
-	movement_speed = 220.0
+		if state_machine.get_current_state() == "attacking":
+			state_machine.transition_to("idle")
 
 func get_character_info() -> Dictionary:
 	return {
@@ -336,5 +369,5 @@ func get_character_info() -> Dictionary:
 		"attack_style": attack_style,
 		"skills": skills,
 		"is_alive": is_alive,
-		"current_state": current_state
+		"current_state": state_machine.get_current_state()
 	} 

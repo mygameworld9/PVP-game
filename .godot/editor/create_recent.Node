@@ -1,3 +1,7 @@
+Node
+Button
+Label
+CanvasLayer
 Camera2D
 TileMapLayer
 AnimatedSprite2D

@@ -1,7 +1,9 @@
 extends Node2D
-
+const PLAYER =  preload("res://characters/Knight.tscn")
 var current_character: CharacterBody2D
 var selected_character_type: String = ""
+var peer = ENetMultiplayerPeer.new()
+@onready var players: Node = $Players
 
 func _ready():
 	# Connect back button
@@ -171,3 +173,24 @@ func _input(event):
 			current_character._execute_special_skill()
 		elif event.is_action_pressed("skill_3"):
 			current_character._execute_special_skill() 
+
+
+func _on_create_button_down() -> void:
+	var error = peer.create_server(25565) # mc port
+	if error != OK:
+		return
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	add_player(multiplayer.get_unique_id())
+func add_player(id:int) -> void:
+	var player = PLAYER.instantiate()
+	player.name = str(id)
+	players.add_child(player)
+func _on_peer_connected(id:int) -> void:
+	print("玩家加入,id:",id)
+	add_player(id)
+	pass
+
+func _on_join_button_down() -> void:
+	peer.create_client("127.0.0.1",25565)
+	multiplayer.multiplayer_peer = peer

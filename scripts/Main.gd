@@ -182,6 +182,9 @@ func _update_ui_text():
 func _input(event):
 	if event.is_action_pressed("jump") and Global.selected_character != "":
 		_start_game()
+	# TEMP: Press 'L' to open lobby
+	if event.is_action_pressed("ui_lobby"):
+		_open_lobby()
 
 func _start_game():
 	if Global.selected_character != "":
@@ -193,3 +196,7 @@ func _start_game():
 func _on_character_selected(character_name: String):
 	# Update local selected_character for compatibility
 	selected_character = character_name 
+
+func _open_lobby():
+	get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+	
