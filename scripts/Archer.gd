@@ -38,6 +38,11 @@ func _ready():
 	_setup_state_machine()
 	_setup_health_bar()
 	_update_health_display()
+	_setup_collision_layers()
+	
+	# Start with idle animation
+	if animated_sprite:
+		animated_sprite.play("idle")
 	
 	# Set Archer-specific stats
 	character_name = "Archer"
@@ -69,6 +74,13 @@ func _setup_health_bar():
 func _update_health_display():
 	if health_bar:
 		health_bar.value = current_health
+
+func _setup_collision_layers():
+	# Set collision layers and masks for character
+	# Layer 1: Characters (collision layer)
+	# Layer 2: Ground/Tiles (collision mask)
+	collision_layer = 2  # Characters are on layer 2
+	collision_mask = 1   # Characters can collide with layer 1 (ground)
 
 func _physics_process(delta):
 	# Handle movement input
@@ -110,6 +122,10 @@ func _handle_input():
 	input_vector = input_vector.normalized()
 
 func _update_state():
+	# 如果角色正在攻击、受伤或已倒下，则不要根据移动来更新状态
+	if current_state == "attacking" or current_state == "taking_damage" or current_state == "defeated":
+		return # 提前退出函数，不执行下面的逻辑
+
 	if is_jumping:
 		current_state = "jumping"
 		_update_animation()
@@ -153,8 +169,7 @@ func _execute_attack1():
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Archer uses Attack 1: Quick Shot!")
 		current_state = "attacking"
-		_update_animation()
-		# Play attack1 animation
+		# Play attack1 animation directly
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
 			animated_sprite.play("attack1")
 		await get_tree().create_timer(0.5).timeout
@@ -167,8 +182,7 @@ func _execute_attack2():
 	if current_state != "attacking" and current_state != "taking_damage" and current_state != "defeated":
 		print("Archer uses Attack 2: Power Shot!")
 		current_state = "attacking"
-		_update_animation()
-		# Play attack2 animation
+		# Play attack2 animation directly
 		if animated_sprite and animated_sprite.sprite_frames.has_animation("attack2"):
 			animated_sprite.play("attack2")
 		await get_tree().create_timer(0.8).timeout
@@ -200,7 +214,9 @@ func use_skill(skill_name: String) -> bool:
 		match skill_name:
 			"basic_attack":
 				current_state = "attacking"
-				_update_animation()
+				# Play attack1 animation directly
+				if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
+					animated_sprite.play("attack1")
 				# Reset attack state after a short time
 				await get_tree().create_timer(0.5).timeout
 				if current_state == "attacking":
@@ -234,7 +250,9 @@ func _execute_precise_shot():
 	print("Archer uses Precise Shot!")
 	attack_damage = 60  # Temporary damage boost
 	current_state = "attacking"
-	_update_animation()
+	# Play attack1 animation directly
+	if animated_sprite and animated_sprite.sprite_frames.has_animation("attack1"):
+		animated_sprite.play("attack1")
 	
 	# Reset damage after attack
 	await get_tree().create_timer(0.5).timeout

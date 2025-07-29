@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://map_editor_scene"]
+
+[ext_resource type="Script" path="res://scripts/MapEditor.gd" id="1_map_editor"]
+
+[node name="MapEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_map_editor")
+
+[node name="TileMapContainer" type="Node2D" parent="."]
+
+[node name="UIPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_right = -10.0
+offset_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="Label" type="Label" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+text = "独立地图编辑器"
+horizontal_alignment = 1
+
+[node name="MapNameInput" type="LineEdit" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "输入地图名称"
+
+[node name="LayerInfo" type="Label" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+text = "当前层: Ground (地面层)"
+horizontal_alignment = 1
+
+[node name="LayerButtons" type="HBoxContainer" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TileButtons" type="HBoxContainer" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+text = "选择层和瓦片类型，然后点击地图绘制"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ToggleButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "切换绘制"
+
+[node name="ClearLayerButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "清除当前层"
+
+[node name="ClearAllButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "清除所有层"
+
+[node name="SaveButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "保存地图"
+
+[node name="LoadButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "加载地图"
+
+[node name="BackButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -80.0
+offset_right = 400.0
+offset_bottom = -10.0
+text = "操作说明：
+- 鼠标中键拖拽：移动相机
+- 鼠标滚轮：缩放
+- 左键点击：绘制瓦片
+- 选择层和瓦片后点击'切换绘制'开始绘制" 

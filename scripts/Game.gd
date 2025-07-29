@@ -10,11 +10,71 @@ func _ready():
 	# Connect language change signal
 	LanguageManager.language_changed.connect(_update_ui_text)
 	
-	# Spawn a default character (Knight) for testing
-	spawn_character("Knight")
+	# Connect Global signals
+	Global.character_selected.connect(_on_character_selected)
+	Global.game_state_changed.connect(_on_game_state_changed)
+	
+	# Spawn the selected character from Global
+	spawn_character(Global.selected_character)
 	
 	# Initialize UI text
 	_update_ui_text()
+	
+	# Change game state
+	Global.change_game_state(Global.GameState.PLAYING)
+	
+	# Add test damage button
+	_add_test_controls()
+
+func _add_test_controls():
+	"""添加测试控制按钮"""
+	var test_panel = Panel.new()
+	test_panel.name = "TestPanel"
+	test_panel.position = Vector2(10, 10)
+	test_panel.size = Vector2(200, 100)
+	
+	var vbox = VBoxContainer.new()
+	test_panel.add_child(vbox)
+	
+	# 测试伤害按钮
+	var damage_button = Button.new()
+	damage_button.text = "Test Damage (20)"
+	damage_button.pressed.connect(_test_damage)
+	vbox.add_child(damage_button)
+	
+	# 测试死亡按钮
+	var death_button = Button.new()
+	death_button.text = "Test Death (100)"
+	death_button.pressed.connect(_test_death)
+	vbox.add_child(death_button)
+	
+	# 治疗按钮
+	var heal_button = Button.new()
+	heal_button.text = "Heal (50)"
+	heal_button.pressed.connect(_test_heal)
+	vbox.add_child(heal_button)
+	
+	add_child(test_panel)
+
+func _test_damage():
+	"""测试伤害功能"""
+	if current_character and current_character.has_method("take_damage"):
+		current_character.take_damage(20)
+		print("Applied 20 damage to character")
+
+func _test_death():
+	"""测试死亡功能"""
+	if current_character and current_character.has_method("take_damage"):
+		current_character.take_damage(100)
+		print("Applied 100 damage to character (should cause death)")
+
+func _test_heal():
+	"""测试治疗功能"""
+	if current_character and current_character.has_method("heal"):
+		current_character.heal(50)
+		print("Healed character by 50")
+	
+
 
 func spawn_character(character_type: String):
 	selected_character_type = character_type
@@ -44,20 +104,24 @@ func spawn_character(character_type: String):
 			character_scene = preload("res://characters/Slime.tscn")
 		"Soldier":
 			character_scene = preload("res://characters/Soldier.tscn")
-		"Armored Axeman":
+		"ArmoredAxeman":
 			character_scene = preload("res://characters/ArmoredAxeman.tscn")
-		"Elite Orc":
+		"EliteOrc":
 			character_scene = preload("res://characters/EliteOrc.tscn")
-		"Knight Templar":
+		"KnightTemplar":
 			character_scene = preload("res://characters/KnightTemplar.tscn")
 		"Lancer":
 			character_scene = preload("res://characters/Lancer.tscn")
-		"Armored Orc":
+		"ArmoredOrc":
 			character_scene = preload("res://characters/ArmoredOrc.tscn")
-		"Armored Skeleton":
+		"ArmoredSkeleton":
 			character_scene = preload("res://characters/ArmoredSkeleton.tscn")
-		"Greatsword Skeleton":
+		"GreatswordSkeleton":
 			character_scene = preload("res://characters/GreatswordSkeleton.tscn")
+		"Orc":
+			character_scene = preload("res://characters/Orc.tscn")
+		"OrcRider":
+			character_scene = preload("res://characters/OrcRider.tscn")
 		_:
 			character_scene = preload("res://characters/Knight.tscn")
 	
@@ -87,7 +151,15 @@ func _update_ui_text():
 	$UI/CharacterInfo/Skill2Label.text = LanguageManager.get_text("skill2")
 	$UI/BackButton.text = LanguageManager.get_text("back_to_menu")
 
+func _on_character_selected(character_name: String):
+	print("Character selected in game: ", character_name)
+
+func _on_game_state_changed(new_state: Global.GameState):
+	print("Game state changed to: ", new_state)
+
 func _on_back_button_pressed():
+	# Reset selections and go back to main menu
+	Global.reset_selections()
 	get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func _input(event):

@@ -52,7 +52,16 @@ var translations = {
 		"back_to_menu": "Back to Menu",
 		"language": "Language",
 		"english": "English",
-		"chinese": "中文"
+		"chinese": "中文",
+		"select_map": "Select a Map",
+		"map_selected": "Map selected! Press SPACE to start game",
+		"back_to_character_selection": "Back to Character Selection",
+		"training_grounds": "Training Grounds",
+		"mystic_forest": "Mystic Forest",
+		"royal_castle": "Royal Castle",
+		"dark_dungeon": "Dark Dungeon",
+		"battle_arena": "Battle Arena",
+		"desert_oasis": "Desert Oasis"
 	},
 	"zh": {
 		"game_title": "角色阵容游戏",
@@ -101,7 +110,16 @@ var translations = {
 		"back_to_menu": "返回菜单",
 		"language": "语言",
 		"english": "English",
-		"chinese": "中文"
+		"chinese": "中文",
+		"select_map": "选择地图",
+		"map_selected": "地图已选择！按空格键开始游戏",
+		"back_to_character_selection": "返回角色选择",
+		"training_grounds": "训练场",
+		"mystic_forest": "神秘森林",
+		"royal_castle": "皇家城堡",
+		"dark_dungeon": "黑暗地牢",
+		"battle_arena": "战斗竞技场",
+		"desert_oasis": "沙漠绿洲"
 	}
 }
 

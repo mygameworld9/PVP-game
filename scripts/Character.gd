@@ -26,12 +26,14 @@ var current_state: String = "idle"
 # Movement
 var input_vector: Vector2 = Vector2.ZERO
 var facing_direction: Vector2 = Vector2.RIGHT
+var is_jumping: bool = false
 
 func _ready():
 	current_health = max_health
 	_setup_state_machine()
 	_setup_health_bar()
 	_update_health_display()
+	_setup_collision_layers()
 
 func _setup_state_machine():
 	# Simple state management without complex inheritance
@@ -45,6 +47,13 @@ func _setup_health_bar():
 func _update_health_display():
 	if health_bar:
 		health_bar.value = current_health
+
+func _setup_collision_layers():
+	# Set collision layers and masks for character
+	# Layer 1: Characters (collision layer)
+	# Layer 2: Ground/Tiles (collision mask)
+	collision_layer = 2  # Characters are on layer 2
+	collision_mask = 1   # Characters can collide with layer 1 (ground)
 
 func _physics_process(delta):
 	# Handle movement input
@@ -63,29 +72,42 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _update_state():
-	if current_state == "defeated":
-		return
-	
-	if current_state == "attacking":
-		# Stay in attacking state for a short time
-		return
-	
-	if current_state == "taking_damage":
-		# Stay in damage state for a short time
-		return
-	
-	# Determine new state based on input
-	var new_state = "idle"
-	if input_vector != Vector2.ZERO:
-		if Input.is_key_pressed(KEY_SHIFT):
-			new_state = "running"
-		else:
-			new_state = "walking"
-	
-	# Update state and animation
-	if new_state != current_state:
-		current_state = new_state
+	# 如果角色正在攻击、受伤或已倒下，则不要根据移动来更新状态
+	if current_state == "attacking" or current_state == "taking_damage" or current_state == "defeated":
+		return # 提前退出函数，不执行下面的逻辑
+
+	if is_jumping:
+		current_state = "jumping"
 		_update_animation()
+		return
+	
+	if input_vector != Vector2.ZERO:
+		if abs(input_vector.x) > 0.5:
+			current_state = "walking"
+		else:
+			current_state = "idle"
+	else:
+		current_state = "idle"
+	
+	_update_animation()
+
+func _handle_input():
+	# 如果角色已死亡，不处理输入
+	if not is_alive:
+		return
+	
+	input_vector = Vector2.ZERO
+	
+	if Input.is_action_pressed("move_right"):
+		input_vector.x += 1
+	if Input.is_action_pressed("move_left"):
+		input_vector.x -= 1
+	if Input.is_action_pressed("move_down"):
+		input_vector.y += 1
+	if Input.is_action_pressed("move_up"):
+		input_vector.y -= 1
+	
+	input_vector = input_vector.normalized()
 
 func _update_animation():
 	if animated_sprite:
@@ -127,8 +149,7 @@ func take_damage(damage: int):
 	if current_health <= 0:
 		current_health = 0
 		is_alive = false
-		current_state = "defeated"
-		_update_animation()
+		_die()
 	else:
 		current_state = "taking_damage"
 		_update_animation()
@@ -137,6 +158,32 @@ func take_damage(damage: int):
 		if current_state == "taking_damage":
 			current_state = "idle"
 			_update_animation()
+
+func _die():
+	"""处理角色死亡"""
+	current_state = "defeated"
+	_update_animation()
+	
+	# 禁用输入和移动
+	set_physics_process(false)
+	
+	# 播放死亡动画
+	if animated_sprite:
+		animated_sprite.play("defeat")
+		# 等待死亡动画播放完成
+		await animated_sprite.animation_finished
+	
+	# 可选：在死亡后执行额外操作
+	_on_death_complete()
+
+func _on_death_complete():
+	"""死亡完成后的回调，子类可以重写"""
+	# 可以在这里添加死亡特效、音效等
+	print(character_name + " has been defeated!")
+	
+	# 可选：延迟后销毁角色
+	# await get_tree().create_timer(2.0).timeout
+	# queue_free()
 
 func heal(amount: int):
 	if not is_alive:

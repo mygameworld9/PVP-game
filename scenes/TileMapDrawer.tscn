@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://tilemap_drawer_scene"]
+
+[ext_resource type="Script" path="res://scripts/TileMapDrawer.gd" id="1_drawer"]
+
+[node name="TileMapDrawer" type="Node2D"]
+script = ExtResource("1_drawer")
+
+[node name="UIPanel" type="Panel" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 150.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="Label" type="Label" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+text = "TileMap绘制工具"
+horizontal_alignment = 1
+
+[node name="TileButtons" type="HBoxContainer" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+text = "选择瓦片类型，然后点击地图绘制"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UIPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ToggleButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "切换绘制模式"
+
+[node name="ClearButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "清除地图"
+
+[node name="SaveButton" type="Button" parent="UIPanel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "保存地图" 

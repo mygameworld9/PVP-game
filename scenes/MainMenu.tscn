@@ -1,12 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://crrxow6p7mc30"]
 
-[ext_resource type="Script" path="res://scripts/Main.gd" id="1_0x0x0"]
+[ext_resource type="Script" uid="uid://b2wvj8v1g0l4l" path="res://scripts/Main.gd" id="1_0x0x0"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_0x0x0")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -14,6 +16,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="Title" type="Label" parent="."]
@@ -25,6 +29,7 @@ offset_left = -150.0
 offset_top = 100.0
 offset_right = 150.0
 offset_bottom = 150.0
+grow_horizontal = 2
 text = "Character Roster Game"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -40,6 +45,8 @@ offset_left = -100.0
 offset_top = -100.0
 offset_right = 100.0
 offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="WarriorBtn" type="Button" parent="CharacterList"]
 layout_mode = 2
@@ -64,5 +71,7 @@ offset_left = -200.0
 offset_top = -100.0
 offset_right = 200.0
 offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Select a character to begin"
-horizontal_alignment = 1 
+horizontal_alignment = 1

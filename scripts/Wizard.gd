@@ -38,6 +38,7 @@ func _ready():
 	_setup_state_machine()
 	_setup_health_bar()
 	_update_health_display()
+	_setup_collision_layers()
 	
 	# Set Wizard-specific stats
 	character_name = "Wizard"
@@ -69,6 +70,13 @@ func _setup_health_bar():
 func _update_health_display():
 	if health_bar:
 		health_bar.value = current_health
+
+func _setup_collision_layers():
+	# Set collision layers and masks for character
+	# Layer 1: Characters (collision layer)
+	# Layer 2: Ground/Tiles (collision mask)
+	collision_layer = 2  # Characters are on layer 2
+	collision_mask = 1   # Characters can collide with layer 1 (ground)
 
 func _physics_process(delta):
 	# Handle movement input
@@ -102,35 +110,24 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _update_state():
-	if current_state == "defeated":
-		return
-	
-	if current_state == "attacking":
-		# Stay in attacking state for a short time
-		return
-	
-	if current_state == "taking_damage":
-		# Stay in damage state for a short time
-		return
-	
-	# Handle jumping state
+	# 如果角色正在攻击、受伤或已倒下，则不要根据移动来更新状态
+	if current_state == "attacking" or current_state == "taking_damage" or current_state == "defeated":
+		return # 提前退出函数，不执行下面的逻辑
+
 	if is_jumping:
 		current_state = "jumping"
 		_update_animation()
 		return
 	
-	# Determine new state based on input
-	var new_state = "idle"
 	if input_vector != Vector2.ZERO:
-		if Input.is_key_pressed(KEY_SHIFT):
-			new_state = "running"
+		if abs(input_vector.x) > 0.5:
+			current_state = "walking"
 		else:
-			new_state = "walking"
+			current_state = "idle"
+	else:
+		current_state = "idle"
 	
-	# Update state and animation
-	if new_state != current_state:
-		current_state = new_state
-		_update_animation()
+	_update_animation()
 
 func _update_animation():
 	if animated_sprite:

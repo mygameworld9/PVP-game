@@ -1,15 +1,188 @@
-[gd_scene load_steps=4 format=3 uid="uid://armored_axeman_character"]
+[gd_scene load_steps=45 format=3 uid="uid://b22cc1lu8l8sv"]
 
-[ext_resource type="Script" uid="uid://armored_axeman_script" path="res://scripts/ArmoredAxeman.gd" id="2_0x0x0"]
+[ext_resource type="Script" uid="uid://eddown10kpg4" path="res://scripts/ArmoredAxeman.gd" id="2_0x0x0"]
+[ext_resource type="Texture2D" uid="uid://dw5wop3xhmd71" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Attack01.png" id="2_o5sui"]
+[ext_resource type="Texture2D" uid="uid://blwom4tj7ibu2" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Attack02.png" id="3_bo8su"]
+[ext_resource type="Texture2D" uid="uid://jasbkofmvh1y" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Hurt.png" id="4_n0uo5"]
+[ext_resource type="Texture2D" uid="uid://dkbf662ubqap8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Idle.png" id="5_c8rfx"]
+[ext_resource type="Texture2D" uid="uid://c0lk27xujty4p" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Walk.png" id="6_l28sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(32, 32)
+size = Vector2(14, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_app60"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov23q"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f3bl"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fay4h"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12fj2"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8cv4"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2imr"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_271k1"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xs7v"]
+atlas = ExtResource("2_o5sui")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t22g"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdjds"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brspj"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj20a"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js3p0"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xipm"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjgup"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avva4"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ingy"]
+atlas = ExtResource("3_bo8su")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6tfw"]
+atlas = ExtResource("4_n0uo5")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti7ko"]
+atlas = ExtResource("4_n0uo5")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr780"]
+atlas = ExtResource("4_n0uo5")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtyu6"]
+atlas = ExtResource("4_n0uo5")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er45h"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05efv"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lotg3"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwyt5"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0pn5"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm1ym"]
+atlas = ExtResource("5_c8rfx")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5fuk"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_db43y"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md8ox"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioqlq"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyd55"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmmsn"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obedt"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w65c"]
+atlas = ExtResource("6_l28sj")
+region = Rect2(700, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_app60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov23q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f3bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fay4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12fj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8cv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2imr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_271k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xs7v")
 }],
 "loop": false,
 "name": &"attack1",
@@ -17,19 +190,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_2t22g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdjds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brspj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj20a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js3p0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xipm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjgup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avva4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ingy")
 }],
 "loop": false,
 "name": &"attack2",
 "speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"hurt",
-"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -41,7 +230,39 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_t6tfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti7ko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr780")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtyu6")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_er45h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05efv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lotg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwyt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0pn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm1ym")
 }],
 "loop": true,
 "name": &"idle",
@@ -49,7 +270,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": SubResource("AtlasTexture_s5fuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_db43y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md8ox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ioqlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyd55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmmsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obedt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w65c")
 }],
 "loop": true,
 "name": &"walk",
@@ -60,6 +302,7 @@ animations = [{
 script = ExtResource("2_0x0x0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -92,4 +335,4 @@ offset_top = -50.0
 offset_right = 50.0
 offset_bottom = -40.0
 text = "Armored Axeman"
-horizontal_alignment = 1 
+horizontal_alignment = 1

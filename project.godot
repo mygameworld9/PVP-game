@@ -19,6 +19,8 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 LanguageManager="*res://scripts/LanguageManager.gd"
+Global="*res://scripts/Global.gd"
+MapTileSetManager="*res://scripts/MapTileSetManager.gd"
 
 [display]
 
