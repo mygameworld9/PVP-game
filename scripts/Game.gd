@@ -1,5 +1,5 @@
 extends Node2D
-const PLAYER =  preload("res://characters/Knight.tscn")
+
 var current_character: CharacterBody2D
 var selected_character_type: String = ""
 var peer = ENetMultiplayerPeer.new()
@@ -17,7 +17,7 @@ func _ready():
 	Global.game_state_changed.connect(_on_game_state_changed)
 	
 	# Spawn the selected character from Global
-	spawn_character(Global.selected_character)
+	#spawn_character(Global.selected_character)
 	
 	# Initialize UI text
 	_update_ui_text()
@@ -182,10 +182,23 @@ func _on_create_button_down() -> void:
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	add_player(multiplayer.get_unique_id())
-func add_player(id:int) -> void:
-	var player = PLAYER.instantiate()
-	player.name = str(id)
-	players.add_child(player)
+func add_player(id: int) -> void:
+	# 1. Build the dynamic path using your variable
+	var character_path = "res://characters/" + Global.selected_character + ".tscn"
+	
+	# 2. Use load() to get the resource at runtime
+	var character_scene = load(character_path)
+
+	# 3. Check if the scene was loaded successfully before continuing
+	if character_scene:
+		var player_instance = character_scene.instantiate()
+		player_instance.name = str(id)
+		
+		# Add the new player instance to the scene
+		# Assuming 'players' is a Node in your scene meant to hold player objects
+		players.add_child(player_instance)
+	else:
+		print("Error: Could not load scene at path: ", character_path)
 func _on_peer_connected(id:int) -> void:
 	print("玩家加入,id:",id)
 	add_player(id)

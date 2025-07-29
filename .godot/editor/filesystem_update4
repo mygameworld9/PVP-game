@@ -1,7 +1,8 @@
-res://scripts/Global.gd
+res://scenes/Main.tscn
+res://tilesets/ForestMap.tres
+res://scripts/Game.gd
 res://scripts/Main.gd
 res://characters/Archer.tscn
-res://tilesets/ForestMap.tres
 res://characters/Lancer.tscn
 res://characters/ArmoredAxeman.tscn
 res://characters/ArmoredOrc.tscn
@@ -20,7 +21,6 @@ res://characters/Priest.tscn
 res://characters/Skeleton.tscn
 res://Maps/ExampleMap.tscn
 res://scenes/Game.tscn
-res://scenes/Main.tscn
 res://scenes/MainMenu.tscn
 res://scenes/MapEditor.tscn
 res://scenes/TileMapDrawer.tscn
@@ -29,6 +29,3 @@ res://scenes/TileMapLayerManager.tscn
 res://Maps/ForestMap.tscn
 res://scenes/GameMapDrawer.tscn
 res://scenes/MapSelection.tscn
-res://scripts/Lobby.gd
-res://scripts/Game.gd
-res://scripts/MapTileSetManager.gd
