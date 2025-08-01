@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://btqjw54lpp8ht"]
+[gd_scene load_steps=51 format=3 uid="uid://btqjw54lpp8ht"]
 
 [ext_resource type="Script" uid="uid://biwlxbyk7fe4a" path="res://scripts/EliteOrc.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://nbutpnvdrou5" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Elite Orc/Elite Orc/Elite Orc-Attack01.png" id="2_gc7bq"]
@@ -324,6 +324,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gnr1f"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="EliteOrc" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -362,3 +370,6 @@ offset_right = 40.0
 offset_bottom = -40.0
 text = "Elite Orc"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_gnr1f")

@@ -1,7 +1,6 @@
-res://scenes/Main.tscn
+res://characters/Wizard.tscn
 res://tilesets/ForestMap.tres
-res://scripts/Game.gd
-res://scripts/Main.gd
+res://scripts/Wizard.gd
 res://characters/Archer.tscn
 res://characters/Lancer.tscn
 res://characters/ArmoredAxeman.tscn
@@ -11,7 +10,6 @@ res://characters/EliteOrc.tscn
 res://characters/GreatswordSkeleton.tscn
 res://characters/KnightTemplar.tscn
 res://characters/Orc.tscn
-res://characters/Wizard.tscn
 res://characters/Werewolf.tscn
 res://characters/Swordsman.tscn
 res://characters/Soldier.tscn
@@ -21,6 +19,7 @@ res://characters/Priest.tscn
 res://characters/Skeleton.tscn
 res://Maps/ExampleMap.tscn
 res://scenes/Game.tscn
+res://scenes/Main.tscn
 res://scenes/MainMenu.tscn
 res://scenes/MapEditor.tscn
 res://scenes/TileMapDrawer.tscn
@@ -29,3 +28,20 @@ res://scenes/TileMapLayerManager.tscn
 res://Maps/ForestMap.tscn
 res://scenes/GameMapDrawer.tscn
 res://scenes/MapSelection.tscn
+res://characters/Knight.tscn
+res://scripts/ArmoredAxeman.gd
+res://scripts/ArmoredOrc.gd
+res://scripts/ArmoredSkeleton.gd
+res://scripts/Character.gd
+res://scripts/EliteOrc.gd
+res://scripts/GreatswordSkeleton.gd
+res://scripts/Knight.gd
+res://scripts/KnightTemplar.gd
+res://scripts/Lancer.gd
+res://scripts/Orc.gd
+res://scripts/OrcRider.gd
+res://scripts/Priest.gd
+res://scripts/Skeleton.gd
+res://scripts/Slime.gd
+res://scripts/Soldier.gd
+res://scripts/Werewolf.gd

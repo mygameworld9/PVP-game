@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dxa0rml5i5ih6"]
+[gd_scene load_steps=56 format=3 uid="uid://dxa0rml5i5ih6"]
 
 [ext_resource type="Script" uid="uid://c8k4tt6kpxlue" path="res://scripts/Archer.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://cw8x865p2pjry" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Swordsman/Swordsman/Swordsman-Idle.png" id="2_cniw0"]
@@ -359,6 +359,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l4krl"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Swordsman" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -397,3 +405,6 @@ offset_right = 40.0
 offset_bottom = -40.0
 text = "Swordsman"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_l4krl")

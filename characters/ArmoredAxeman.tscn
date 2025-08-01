@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b22cc1lu8l8sv"]
+[gd_scene load_steps=52 format=3 uid="uid://dib0ppvar8jjx"]
 
 [ext_resource type="Script" uid="uid://eddown10kpg4" path="res://scripts/ArmoredAxeman.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dw5wop3xhmd71" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Axeman/Armored Axeman/Armored Axeman-Attack01.png" id="2_o5sui"]
@@ -327,6 +327,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eb61x"]
 size = Vector2(80, 60)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bo8su"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="ArmoredAxeman" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -373,3 +381,6 @@ collision_mask = 2
 [node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_eb61x")
 disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bo8su")

@@ -13,6 +13,8 @@ extends CharacterBody2D
 @export var skill_cooldowns: Dictionary = {}
 
 # Current Stats
+var character_type: String = ""
+
 var current_health: int
 var is_alive: bool = true
 
@@ -82,6 +84,8 @@ func _setup_collision_layers():
 	collision_mask = 1   # Characters can collide with layer 1 (ground)
 
 func _physics_process(delta):
+	if not is_multiplayer_authority():
+		return
 	# Handle movement input
 	_handle_input()
 	

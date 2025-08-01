@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://clsojg7uiedka"]
+[gd_scene load_steps=55 format=3 uid="uid://clsojg7uiedka"]
 
 [ext_resource type="Script" uid="uid://btn43prdf3q3n" path="res://scripts/Werewolf.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://b5lpi2p3h4l6t" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Werewolf/Werewolf/Werewolf-Idle.png" id="2_ct2t5"]
@@ -352,6 +352,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g0bsd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Werewolf" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -390,3 +398,6 @@ offset_right = 30.0
 offset_bottom = -40.0
 text = "Werewolf"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_g0bsd")

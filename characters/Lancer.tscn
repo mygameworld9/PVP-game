@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bg3w334clvh2u"]
+[gd_scene load_steps=48 format=3 uid="uid://bg3w334clvh2u"]
 
 [ext_resource type="Script" uid="uid://drqijtitcbw2p" path="res://scripts/Lancer.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dx3d27ipb2tph" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Lancer/Lancer/Lancer-Attack01.png" id="2_7vii1"]
@@ -303,6 +303,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2yh5l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Lancer" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -341,3 +349,6 @@ offset_right = 30.0
 offset_bottom = -40.0
 text = "Lancer"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2yh5l")

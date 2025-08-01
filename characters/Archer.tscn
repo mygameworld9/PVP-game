@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://r115bka5h0xf"]
+[gd_scene load_steps=56 format=3 uid="uid://r115bka5h0xf"]
 
 [ext_resource type="Script" uid="uid://c8k4tt6kpxlue" path="res://scripts/Archer.gd" id="2_0x0x0"]
 [ext_resource type="Script" uid="uid://doaovcfojc7bv" path="res://scripts/StateMachine.gd" id="2_1x0x0"]
@@ -349,6 +349,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
 size = Vector2(80, 60)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s6km4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Archer" type="CharacterBody2D"]
 position = Vector2(-1, -7)
 script = ExtResource("2_0x0x0")
@@ -406,3 +414,6 @@ grow_vertical = 2
 text = "Archer"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_s6km4")

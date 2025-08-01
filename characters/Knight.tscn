@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bpopgr1qn6gw6"]
+[gd_scene load_steps=52 format=3 uid="uid://bpopgr1qn6gw6"]
 
 [ext_resource type="Script" uid="uid://cus1y2uj8mxf2" path="res://scripts/Knight.gd" id="2_0x0x0"]
 [ext_resource type="Script" uid="uid://doaovcfojc7bv" path="res://scripts/StateMachine.gd" id="2_1x0x0"]
@@ -321,6 +321,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
 size = Vector2(15.5, 18)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6u0g4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Knight" type="CharacterBody2D"]
 position = Vector2(-1, -7)
 script = ExtResource("2_0x0x0")
@@ -378,3 +386,6 @@ grow_vertical = 2
 text = "Knight"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6u0g4")

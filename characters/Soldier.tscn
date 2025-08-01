@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bpopgr1qn6gw7"]
+[gd_scene load_steps=47 format=3 uid="uid://bpopgr1qn6gw7"]
 
 [ext_resource type="Script" uid="uid://2ck5b6fu4lmd" path="res://scripts/Soldier.gd" id="2_0x0x0"]
 [ext_resource type="Script" uid="uid://doaovcfojc7bv" path="res://scripts/StateMachine.gd" id="2_1x0x0"]
@@ -286,6 +286,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
 size = Vector2(15.5, 18)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dhm05"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Soldier" type="CharacterBody2D"]
 position = Vector2(-1, -7)
 script = ExtResource("2_0x0x0")
@@ -345,3 +353,6 @@ grow_vertical = 2
 text = "Soldier"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dhm05")

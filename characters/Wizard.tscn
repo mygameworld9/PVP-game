@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://6nvfhe8ev1h2"]
+[gd_scene load_steps=45 format=3 uid="uid://6nvfhe8ev1h2"]
 
 [ext_resource type="Script" uid="uid://b02icy73r17jc" path="res://scripts/Wizard.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://bj8fmf2tipoo6" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Wizard/Wizard/Wizard-Attack01.png" id="2_x3e82"]
@@ -287,6 +287,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pu2np"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Wizard" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -324,3 +332,6 @@ offset_right = 30.0
 offset_bottom = -40.0
 text = "Wizard"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pu2np")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bg354xkdgjn1f"]
+[gd_scene load_steps=48 format=3 uid="uid://bg354xkdgjn1f"]
 
 [ext_resource type="Script" uid="uid://b2fh1ddp5f6l" path="res://scripts/KnightTemplar.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://27gqscyticwa" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Knight Templar/Knight Templar/Knight Templar-Attack01.png" id="2_3etgr"]
@@ -303,6 +303,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3etgr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="KnightTemplar" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -340,3 +348,6 @@ offset_right = 50.0
 offset_bottom = -40.0
 text = "Knight Templar"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3etgr")

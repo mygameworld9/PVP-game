@@ -14,6 +14,8 @@ extends CharacterBody2D
 
 # Current Stats
 var current_health: int
+var character_type: String = ""
+
 var is_alive: bool = true
 
 # State Machine
@@ -102,6 +104,8 @@ func _setup_collision_layers():
 	collision_mask = 1   # Characters can collide with layer 1 (ground)
 
 func _physics_process(delta):
+	if not is_multiplayer_authority():
+		return
 	# Handle movement input
 	_handle_input()
 	

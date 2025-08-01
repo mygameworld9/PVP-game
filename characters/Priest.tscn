@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ci36sc4pvdi4b"]
+[gd_scene load_steps=41 format=3 uid="uid://ci36sc4pvdi4b"]
 
 [ext_resource type="Script" uid="uid://tprcdbpv6hu" path="res://scripts/Priest.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://cf7jxvfps2vbc" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Priest/Priest/Priest-Idle.png" id="2_4offd"]
@@ -263,6 +263,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bwho3"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Priest" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -301,3 +309,6 @@ offset_right = 30.0
 offset_bottom = -40.0
 text = "Priest"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bwho3")

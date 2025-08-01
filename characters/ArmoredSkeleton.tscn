@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dtkhlm4fulkcs"]
+[gd_scene load_steps=51 format=3 uid="uid://dtkhlm4fulkcs"]
 
 [ext_resource type="Script" uid="uid://docb602jcm13p" path="res://scripts/ArmoredSkeleton.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://dipbk45r0smn4" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Armored Skeleton/Armored Skeleton/Armored Skeleton-Attack01.png" id="2_7r85f"]
@@ -320,6 +320,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7r85f"]
 size = Vector2(80, 60)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4yce5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="ArmoredSkeleton" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -366,3 +374,6 @@ collision_mask = 2
 [node name="atkCollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_7r85f")
 disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4yce5")

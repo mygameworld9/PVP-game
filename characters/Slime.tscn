@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://8a4dx1j4hhct"]
+[gd_scene load_steps=49 format=3 uid="uid://8a4dx1j4hhct"]
 
 [ext_resource type="Script" uid="uid://cdqparfjw471h" path="res://scripts/Slime.gd" id="2_0x0x0"]
 [ext_resource type="Texture2D" uid="uid://bpsto12lrwp8x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Full 20 Characters/Characters(100x100)/Slime/Slime/Slime-Attack01.png" id="2_wflep"]
@@ -310,6 +310,14 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cjt1c"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Slime" type="CharacterBody2D"]
 script = ExtResource("2_0x0x0")
 
@@ -348,3 +356,6 @@ offset_right = 30.0
 offset_bottom = -40.0
 text = "Slime"
 horizontal_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_cjt1c")
